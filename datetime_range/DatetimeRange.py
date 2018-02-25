@@ -66,22 +66,10 @@ class DatetimeRange:
         days_count_result = 0
         date_range = {'start_date': '', 'end_date': '', 'days_count': '', 'days': []}
 
-        is_valid_date(start_date)
-        is_valid_date(end_date)
-
-        if type(start_date) is str:
-            start_date_datetime = datetime.strptime(start_date, "%Y-%m-%d")
-        elif type(start_date) is datetime:
-            start_date_datetime = start_date
-        else:
-            raise Exception("start_date must be str or datetime object.")
-
-        if type(end_date) is str:
-            end_date_datetime = datetime.strptime(end_date, "%Y-%m-%d")
-        elif type(end_date) is datetime:
-            end_date_datetime = end_date
-        else:
-            raise Exception("end_date must be str or datetime object.")
+        is_valid_date_format(start_date)
+        is_valid_date_format(end_date)
+        start_date_datetime = is_valid_date_type(start_date, 'start_date')
+        end_date_datetime = is_valid_date_type(end_date, 'end_date')
 
         if end_date_datetime < start_date_datetime:
             raise Exception("end_date must be greater than start_date.")
@@ -116,7 +104,21 @@ class DatetimeRange:
 
         return date_range
 
-    def get_date_range_forward(date, days):
+    def get_date_range_forward(date, days, is_string = False):
+        """
+        Get the date range of the next x days from date
+        :param days:
+        :param is_string:
+        :return:
+        """
+
+        if not type(days) is int:
+            raise Exception("days param should be a valid integer.")
+
+        date = is_valid_date_type(date)
+
+
+
         return None
 
     def get_date_range_backword(date, days):
