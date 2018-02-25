@@ -5,7 +5,7 @@ from utils.DTRangeUtils import *
 
 class DatetimeRange:
     """
-    A library to get a range from two dates
+    A library to get a range from a date
 
     __author__ = "Hamzeh al Darawsheh"
     __copyright__ = "Copyright 2018, datetime-range"
@@ -89,6 +89,7 @@ class DatetimeRange:
             day = start_date_datetime + timedelta(day_index)
             if is_string:
                 day = day.strftime("%Y-%m-%d")
+
             days_list.append(day)
 
         if is_string:
@@ -104,22 +105,75 @@ class DatetimeRange:
 
         return date_range
 
-    def get_date_range_forward(date, days, is_string = False):
+    @staticmethod
+    def get_date_range_forward(date, days, is_string=False, start_date_included=False):
         """
         Get the date range of the next x days from date
+        :param days: int as the number of the days in the future that you want to get it's date range
+        :param date:
         :param days:
         :param is_string:
-        :return:
+        :param start_date_included:
+        :return:date_range as a dict that contains the date range of the next x days
+        Output sample:
+
+        If  is_string is False (default) the returned data will be in datetime objects form:
+
+            {'days': ['2018-02-06',
+                      '2018-02-07',
+                      '2018-02-08',
+                      '2018-02-09',
+                      '2018-02-10',
+                      '2018-02-11',
+                      '2018-02-12'],
+             'days_count': 7,
+             'end_date': '2018-02-12',
+             'start_date': datetime.datetime(2018, 2, 6, 0, 0)}
+
+        If is_string True the returned data will be in str objects form:
+
+            {'days': [datetime.datetime(2018, 2, 6, 0, 0),
+                      datetime.datetime(2018, 2, 7, 0, 0),
+                      datetime.datetime(2018, 2, 8, 0, 0),
+                      datetime.datetime(2018, 2, 9, 0, 0),
+                      datetime.datetime(2018, 2, 10, 0, 0),
+                      datetime.datetime(2018, 2, 11, 0, 0),
+                      datetime.datetime(2018, 2, 12, 0, 0)],
+             'days_count': 7,
+             'end_date': datetime.datetime(2018, 2, 12, 0, 0),
+             'start_date': datetime.datetime(2018, 2, 6, 0, 0)}
+
         """
 
         if not type(days) is int:
             raise Exception("days param should be a valid integer.")
 
         date = is_valid_date_type(date)
+        start_date = date
+        days_list = []
+        date_range = {'start_date': '', 'end_date': '', 'days_count': '', 'days': []}
+
+        for day_index in range(days + 1):
+
+            if not start_date_included and day_index == 0:
+                start_date = date + timedelta(1)
+                continue
+
+            day = date + timedelta(day_index)
+
+            if is_string:
+                day = day.strftime("%Y-%m-%d")
+
+            days_list.append(day)
 
 
+        date_range['start_date'] = start_date
+        date_range['end_date'] = days_list[len(days_list)-1]
+        date_range['days_count'] = len(days_list)
+        date_range['days'] = days_list
 
-        return None
+
+        return date_range
 
     def get_date_range_backword(date, days):
         return None
