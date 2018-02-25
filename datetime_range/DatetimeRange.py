@@ -81,7 +81,10 @@ class DatetimeRange:
         elif type(end_date) is datetime:
             end_date_datetime = end_date
         else:
-            raise Exception("end must be str or datetime object.")
+            raise Exception("end_date must be str or datetime object.")
+
+        if end_date_datetime < start_date_datetime:
+            raise Exception("end_date must be greater than start_date.")
 
         days_difference_datetime = end_date_datetime - start_date_datetime
 
