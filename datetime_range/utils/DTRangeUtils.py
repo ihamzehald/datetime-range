@@ -1,3 +1,8 @@
+"""
+This module contains a set of helper methods to be used in datetime-range
+
+"""
+
 from datetime import datetime, timedelta
 
 def is_valid_date_format(date):

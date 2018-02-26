@@ -8,7 +8,7 @@ class DatetimeRange:
     A library to get a range from a date
 
     __author__ = "Hamzeh al Darawsheh"
-    __copyright__ = "Copyright 2018, datetime-range"
+    __copyright__ = "Copyright 2018, Hamzeh al Darawsheh"
     __credits__ = ["Hamzeh al Darawsheh"]
     __license__ = "MIT"
     __version__ = "0.0.1"
@@ -109,11 +109,10 @@ class DatetimeRange:
     def get_date_range_forward(date, days, is_string=False, start_date_included=False):
         """
         Get the date range of the next x days from date
+        :param date: str/datetime object as the start date to get the next x days range
         :param days: int as the number of the days in the future that you want to get it's date range
-        :param date:
-        :param days:
-        :param is_string:
-        :param start_date_included:
+        :param is_string: bool as the type of the returned data, True will return the data in string form
+        :param start_date_included: bool weather the start date included in the returned range set or not
         :return:date_range as a dict that contains the date range of the next x days
         Output sample:
 
@@ -144,11 +143,13 @@ class DatetimeRange:
              'start_date': datetime.datetime(2018, 2, 6, 0, 0)}
 
         """
-
         if not type(days) is int:
             raise Exception("days param should be a valid integer.")
 
+        is_valid_date_format(date)
+
         date = is_valid_date_type(date)
+
         start_date = date
         days_list = []
         date_range = {'start_date': '', 'end_date': '', 'days_count': '', 'days': []}
