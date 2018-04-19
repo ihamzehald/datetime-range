@@ -192,3 +192,64 @@ class DatetimeRange:
         return None
 
 
+from datetime import datetime, timedelta
+
+
+#
+# Complete the get_date_range function below.
+#
+def get_date_range(from_date, to_date, from_date_included=0, to_date_included=0):
+    #
+    # Write your code here.
+    #
+
+    days_list = []
+    start_date_datetime = datetime.strptime(from_date, "%Y-%m-%d")
+    end_date_datetime = datetime.strptime(to_date, "%Y-%m-%d")
+
+    days_difference_datetime = end_date_datetime - start_date_datetime
+    days_count = days_difference_datetime.days
+
+    for day_index in range(days_count + 1):
+
+        if not from_date_included and day_index == 0:
+            continue
+
+        if not to_date_included and day_index == days_count:
+            continue
+
+        day = start_date_datetime + timedelta(day_index)
+
+        day = day.strftime("%Y-%m-%d")
+
+        days_list.append(day)
+
+    return days_list
+
+
+from datetime import datetime, timedelta
+
+
+def get_date_range(from_date, to_date, from_date_included=0, to_date_included=0):
+    days_list = []
+    start_date_datetime = datetime.strptime(from_date, "%Y-%m-%d")
+    end_date_datetime = datetime.strptime(to_date, "%Y-%m-%d")
+
+    days_difference_datetime = end_date_datetime - start_date_datetime
+    days_count = days_difference_datetime.days
+
+    for day_index in range(days_count + 1):
+
+        if not from_date_included and day_index == 0:
+            continue
+
+        if not to_date_included and day_index == days_count:
+            continue
+
+        day = start_date_datetime + timedelta(day_index)
+
+        day = day.strftime("%Y-%m-%d")
+
+        days_list.append(day)
+
+    return days_list
